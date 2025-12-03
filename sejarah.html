@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sejarah & Visi Misi - KRL CINTA</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           1. CORE STYLE (SAMA PERSIS INDEX.HTML)
+           ========================================= */
+        :root {
+            --primary: #00695c;
+            --secondary: #4db6ac;
+            --bg-body: #F8F9FA;
+            --bg-card: #FFFFFF;
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-main);
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            transition: all 0.3s;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-main) !important;
+            margin: 0 10px;
+        }
+
+        .dropdown-menu {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 10px;
+            margin-top: 10px !important;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .dropdown-item {
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-weight: 500;
+            color: var(--text-main);
+            transition: 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(0, 105, 92, 0.08);
+            color: var(--primary);
+            padding-left: 25px;
+        }
+
+        .dropdown-header {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- PAGE HEADER (Sub-page Style) --- */
+        .page-header {
+            background: linear-gradient(rgba(0, 105, 92, 0.9), rgba(0, 77, 64, 0.9)), url('https://placehold.co/1920x600?text=Sejarah+Kami');
+            background-size: cover;
+            background-position: center;
+            padding: 160px 0 80px;
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-header h1 {
+            color: white;
+            font-size: 3.5rem;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- CONTENT CARDS --- */
+        .content-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .vision-box {
+            background: rgba(0, 105, 92, 0.05);
+            border-left: 5px solid var(--primary);
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--text-main);
+            color: #bdc1c6;
+            padding: 60px 0 20px;
+        }
+
+        footer a {
+            color: #e8eaed;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--secondary);
+        }
+
+        /* --- DARK MODE CONFIGURATION (FULL) --- */
+        body.dark-mode {
+            --bg-body: #202124;
+            --bg-card: #303134;
+            --text-main: #E8EAED;
+            --text-muted: #9AA0A6;
+            --border-color: #3c4043;
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(32, 33, 36, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        body.dark-mode .navbar-brand {
+            color: #E8EAED !important;
+        }
+
+        body.dark-mode .navbar-toggler-icon {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+
+        body.dark-mode .dropdown-menu {
+            background-color: #303134;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode .dropdown-item {
+            color: #E8EAED;
+        }
+
+        body.dark-mode .dropdown-item:hover {
+            background-color: #3c4043;
+            color: #80cbc4;
+        }
+
+        body.dark-mode .dropdown-header {
+            color: #80cbc4 !important;
+        }
+
+        body.dark-mode .dropdown-divider {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode .content-card {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .vision-box {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3,
+        body.dark-mode h4 {
+            color: var(--text-main);
+        }
+
+        body.dark-mode .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        body.dark-mode footer {
+            background-color: #171717;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode footer h4,
+        body.dark-mode footer h5,
+        body.dark-mode footer .text-white {
+            color: #E8EAED !important;
+        }
+
+        body.dark-mode #darkModeToggle {
+            color: #FDB813;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        /* Fix Warna Teks Misi (List Group) di Dark Mode */
+        body.dark-mode .list-group-item {
+            color: var(--text-main) !important; /* Paksa jadi warna putih tulang */
+            border-color: rgba(255, 255, 255, 0.1); /* Opsional: Biar garis pemisahnya (kalau ada) jadi samar */
+        }
+        /* --- FIX WARNA TEKS PRIMARY (WAJIB ADA) --- */
+        
+        /* 1. Paksa text-primary jadi warna Teal (bukan biru bootstrap) */
+        .text-primary {
+            color: var(--primary) !important;
+        }
+
+        /* 2. Warna text-primary khusus Dark Mode (biar kebaca jelas) */
+        body.dark-mode .text-primary {
+            color: #80cbc4 !important; /* Teal muda neon */
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html" style="color: var(--primary); font-size: 1.5rem;">
+                <i class="fas fa-leaf me-2"></i>KRL CINTA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active fw-bold" href="#" id="navbarDropdown1" role="button"
+                            data-bs-toggle="dropdown" style="color: var(--primary) !important;">
+                            Tentang
+                        </a>
+                        <ul class="dropdown-menu shadow-sm border-0">
+                            <li><a class="dropdown-item fw-bold" href="sejarah.html">Sejarah & Visi Misi</a></li>
+                            <li><a class="dropdown-item" href="struktur.html">Struktur Organisasi</a></li>
+                            <li><a class="dropdown-item" href="legalitas.html">Legalitas & SK</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                            data-bs-toggle="dropdown">
+                            Program
+                        </a>
+                        <ul class="dropdown-menu shadow-sm border-0">
+                            <li><a class="dropdown-item" href="program-bank-sampah.html">Bank Sampah Induk</a></li>
+                            <li><a class="dropdown-item" href="program-sedekah.html">Sedekah Sampah</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <h6 class="dropdown-header">Inovasi Organik</h6>
+                            </li>
+                            <li><a class="dropdown-item" href="program-eco-enzyme.html">Eco-Enzyme</a></li>
+                            <li><a class="dropdown-item" href="program-budikdamber.html">Budikdamber & Biopori</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="index.html#produk">Produk</a></li>
+                    <li class="nav-item"><a class="nav-link text-success" href="galeri.html">Galeri & Prestasi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#kontak">Kontak</a></li>
+
+                    <li class="nav-item ms-lg-3">
+                        <button id="darkModeToggle" class="btn btn-outline-dark rounded-circle border-0"><i
+                                class="fas fa-moon"></i></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container" data-aos="fade-up">
+            <h1>Sejarah & Visi Misi</h1>
+            <p class="lead opacity-75">Fondasi dan semangat kami dalam membangun lingkungan yang berkelanjutan.</p>
+        </div>
+    </header>
+
+    <section class="mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+
+                    <div class="content-card" data-aos="fade-up">
+                        <h3 class="fw-bold mb-4 text-primary"><i class="fas fa-history me-2"></i>Latar Belakang</h3>
+                        <p>
+                            Berawal dari keresahan warga RW 021 Komplek TWP TNI AL Ciangsana Bogor akan kondisi
+                            lingkungan sekitarnya yang masih kotor dan kurang mendapat perhatian serius, maka pada
+                            tanggal <strong>23 Desember 2018</strong> dibentuklah Bank Sampah CINTA.
+                        </p>
+                        <p>
+                            Paradigma bahwa sampah adalah buangan yang tidak berguna perlu diubah. Bank Sampah CINTA
+                            hadir sebagai jawaban untuk mengubah paradigma "Buang Sampah" menjadi <strong>"Tabung
+                                Sampah"</strong>. Melalui bank sampah ini, warga diajak untuk memilah sampah dari rumah,
+                            yang kemudian tidak hanya menciptakan lingkungan bersih tetapi juga memberikan nilai
+                            ekonomi.
+                        </p>
+                        <p class="mb-0 text-muted fst-italic">"Bersih Lingkunganku, Sejahtera Keluargaku"</p>
+                    </div>
+
+                    <div class="content-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="fw-bold mb-4 text-primary"><i class="fas fa-eye me-2"></i>Visi Kami</h3>
+                        <div class="vision-box text-center">
+                            <h2 class="display-6 fst-italic fw-bold">"Lingkunganku BERSIH dan SEJAHTERA, Hidup semakin
+                                SEHAT"</h2>
+                        </div>
+                    </div>
+
+                    <div class="content-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="fw-bold mb-4 text-primary"><i class="fas fa-bullseye me-2"></i>Misi Kami</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-transparent"><i
+                                    class="fas fa-check-circle text-success me-3"></i>Melestarikan lingkungan yang asri
+                                dan nyaman.</li>
+                            <li class="list-group-item bg-transparent"><i
+                                    class="fas fa-check-circle text-success me-3"></i>Membudayakan hidup bersih,
+                                sejahtera, dan sehat bagi seluruh warga.</li>
+                            <li class="list-group-item bg-transparent"><i
+                                    class="fas fa-check-circle text-success me-3"></i>Membudayakan kebiasaan tidak
+                                membuang sampah sembarangan.</li>
+                            <li class="list-group-item bg-transparent"><i
+                                    class="fas fa-check-circle text-success me-3"></i>Mengadakan sosialisasi rutin
+                                tentang lingkungan bersih dan sehat.</li>
+                            <li class="list-group-item bg-transparent"><i
+                                    class="fas fa-check-circle text-success me-3"></i>Membantu masyarakat dalam
+                                mengelola sampah rumah tangga secara mandiri.</li>
+                            <li class="list-group-item bg-transparent"><i
+                                    class="fas fa-check-circle text-success me-3"></i>Menyelenggarakan operasional Bank
+                                Sampah secara profesional dan transparan.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <h4 class="text-white mb-3">KRL CINTA</h4>
+                    <p>Desa Ciangsana RW 21, Kecamatan Gunung Putri, Bogor, Jawa Barat.</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-2">
+                    <h5 class="text-white mb-3">Menu</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Beranda</a></li>
+                        <li><a href="sejarah.html">Tentang Kami</a></li>
+                        <li><a href="index.html#kegiatan">Program</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="text-white mb-3">Kontak</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone me-2"></i> (021) 1234-5678</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@krlcinta.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-top border-secondary mt-5 pt-4 text-center">
+                <p class="small mb-0">&copy; 2025 KRL CINTA RW 21. Developed by <strong>KKN Sinergi Peduli</strong>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Logic Dark Mode (Konsisten)
+        const toggleBtn = document.getElementById('darkModeToggle');
+        if (toggleBtn) {
+            const icon = toggleBtn.querySelector('i');
+            const body = document.body;
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode'); icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+            }
+            toggleBtn.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); localStorage.setItem('theme', 'dark');
+                } else {
+                    icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
