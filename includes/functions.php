@@ -39,10 +39,15 @@ function set_setting($key, $value, $type = 'text') {
 /**
  * Ambil semua misi
  */
-function get_all_misi() {
+function get_misi($active_only = true) {
     try {
         $conn = getConnection();
-        $stmt = $conn->query("SELECT * FROM misi ORDER BY sort_order ASC");
+        $sql = "SELECT * FROM misi";
+        if ($active_only) {
+            $sql .= " WHERE is_active = 1";
+        }
+        $sql .= " ORDER BY sort_order ASC";
+        $stmt = $conn->query($sql);
         return $stmt->fetchAll();
     } catch (PDOException $e) {
         return [];
