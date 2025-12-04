@@ -69,6 +69,9 @@ INSERT IGNORE INTO settings (setting_key, setting_value, setting_type, setting_g
 ('sejarah_content', '<p>Berawal dari keresahan warga RW 021 Komplek TWP TNI AL Ciangsana Bogor akan kondisi lingkungan sekitarnya yang masih kotor dan kurang mendapat perhatian serius, maka pada tanggal <strong>23 Desember 2018</strong> dibentuklah Bank Sampah CINTA.</p><p>Paradigma bahwa sampah adalah buangan yang tidak berguna perlu diubah. Bank Sampah CINTA hadir sebagai jawaban untuk mengubah paradigma "Buang Sampah" menjadi <strong>"Tabung Sampah"</strong>. Melalui bank sampah ini, warga diajak untuk memilah sampah dari rumah, yang kemudian tidak hanya menciptakan lingkungan bersih tetapi juga memberikan nilai ekonomi.</p><p class="mb-0 fst-italic">"Bersih Lingkunganku, Sejahtera Keluargaku"</p>', 'html', 'visi_misi'),
 ('sejarah_bg', '', 'image', 'visi_misi'),
 ('galeri_bg', '', 'image', 'hero'),
+('struktur_image', '', 'image', 'struktur'),
+('struktur_description', 'Berikut adalah susunan pengurus KRL CINTA RW 21 Desa Ciangsana.', 'textarea', 'struktur'),
+('struktur_bg', '', 'image', 'struktur'),
 
 -- CTA Section
 ('cta_title', 'Bergabunglah Bersama Kami', 'text', 'cta'),
@@ -145,6 +148,27 @@ INSERT INTO gallery (title, description, image, category, sort_order) VALUES
 ('Pelatihan Warga', 'Kegiatan pelatihan pemilahan sampah', 'sample/kegiatan1.jpg', 'kegiatan', 1);
 
 -- =====================================================
+-- Tabel: struktur_organisasi (untuk bagan organisasi dinamis)
+-- =====================================================
+CREATE TABLE IF NOT EXISTS struktur_organisasi (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nama VARCHAR(100) NOT NULL,
+    jabatan VARCHAR(100) NOT NULL,
+    foto VARCHAR(255),
+    parent_id INT DEFAULT NULL,
+    sort_order INT DEFAULT 0,
+    is_active TINYINT(1) DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- Insert default struktur
+INSERT INTO struktur_organisasi (nama, jabatan, parent_id, sort_order) VALUES 
+('Nama Ketua', 'Ketua', NULL, 1),
+('Nama Sekretaris', 'Sekretaris', 1, 2),
+('Nama Bendahara', 'Bendahara', 1, 3);
+
+-- =====================================================
 -- Index untuk performa
 -- =====================================================
 CREATE INDEX idx_settings_key ON settings(setting_key);
@@ -153,3 +177,4 @@ CREATE INDEX idx_gallery_category ON gallery(category);
 CREATE INDEX idx_gallery_active ON gallery(is_active);
 CREATE INDEX idx_programs_active ON programs(is_active);
 CREATE INDEX idx_misi_order ON misi(sort_order);
+CREATE INDEX idx_struktur_organisasi_active ON struktur_organisasi(is_active);

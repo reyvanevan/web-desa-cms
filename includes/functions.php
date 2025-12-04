@@ -259,3 +259,21 @@ function img_url($path) {
     }
     return UPLOAD_URL . $path;
 }
+
+/**
+ * Ambil data struktur organisasi
+ */
+function get_struktur($active_only = true) {
+    try {
+        $conn = getConnection();
+        $sql = "SELECT * FROM struktur_organisasi";
+        if ($active_only) {
+            $sql .= " WHERE is_active = 1";
+        }
+        $sql .= " ORDER BY sort_order ASC";
+        $stmt = $conn->query($sql);
+        return $stmt->fetchAll();
+    } catch (PDOException $e) {
+        return [];
+    }
+}

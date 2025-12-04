@@ -399,7 +399,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         </a>
                         <ul class="dropdown-menu shadow-sm border-0">
                             <li><a class="dropdown-item" href="sejarah.php">Sejarah & Visi Misi</a></li>
-                            <li><a class="dropdown-item" href="index.php#about">Struktur Organisasi</a></li>
+                            <li><a class="dropdown-item" href="struktur.php">Struktur Organisasi</a></li>
                             <li><a class="dropdown-item" href="index.php#about">Legalitas & SK</a></li>
                         </ul>
                     </li>

@@ -167,6 +167,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <li class="nav-item">
                 <a class="nav-link <?= $current_page == 'misi.php' ? 'active' : '' ?>" href="misi.php"><i class="fas fa-list-ul"></i> Visi & Misi</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link <?= $current_page == 'struktur.php' ? 'active' : '' ?>" href="struktur.php"><i class="fas fa-sitemap"></i> Struktur Organisasi</a>
+            </li>
             <li class="nav-item mt-4">
                 <a class="nav-link text-danger" href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </li>

@@ -27,7 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'hero_bg' => 'hero',
         'about_image' => 'about',
         'sejarah_bg' => 'hero',
-        'galeri_bg' => 'hero'
+        'galeri_bg' => 'hero',
+        'struktur_bg' => 'hero',
+        'struktur_image' => 'struktur'
     ];
 
     foreach ($uploads as $field => $folder) {
@@ -59,6 +61,7 @@ require_once 'includes/header.php';
                 <a href="#stats" class="list-group-item list-group-item-action" data-bs-toggle="list">Statistik</a>
                 <a href="#about" class="list-group-item list-group-item-action" data-bs-toggle="list">Tentang Kami</a>
                 <a href="#sejarah" class="list-group-item list-group-item-action" data-bs-toggle="list">Halaman Sejarah</a>
+                <a href="#struktur" class="list-group-item list-group-item-action" data-bs-toggle="list">Struktur Organisasi</a>
                 <a href="#cta" class="list-group-item list-group-item-action" data-bs-toggle="list">Call to Action</a>
                 <a href="#footer" class="list-group-item list-group-item-action" data-bs-toggle="list">Footer & Kontak</a>
             </div>
@@ -184,6 +187,39 @@ require_once 'includes/header.php';
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Visi</label>
                                 <textarea name="setting_visi" class="form-control" rows="3"><?= get_setting('visi') ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STRUKTUR PAGE -->
+                <div class="tab-pane fade" id="struktur">
+                    <div class="card">
+                        <div class="card-header">Halaman Struktur Organisasi</div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Header Background</label>
+                                <input type="file" name="struktur_bg" class="form-control">
+                                <?php if ($bg = get_setting('struktur_bg')): ?>
+                                    <div class="mt-2">
+                                        <img src="<?= img_url($bg) ?>" height="100" class="rounded">
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Deskripsi Singkat</label>
+                                <textarea name="setting_struktur_description" class="form-control" rows="3"><?= get_setting('struktur_description') ?></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Gambar Bagan Struktur</label>
+                                <input type="file" name="struktur_image" class="form-control">
+                                <?php if ($img = get_setting('struktur_image')): ?>
+                                    <div class="mt-2">
+                                        <img src="<?= img_url($img) ?>" class="img-fluid rounded border" style="max-height: 300px;">
+                                        <small class="text-muted d-block">Gambar saat ini</small>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="form-text">Upload gambar bagan struktur organisasi (JPG/PNG).</div>
                             </div>
                         </div>
                     </div>
