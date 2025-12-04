@@ -1,6 +1,12 @@
 <?php
 $page_title = "Pengaturan Umum";
-require_once 'includes/header.php';
+require_once '../config/database.php';
+require_once '../includes/functions.php';
+
+session_start();
+if (!is_logged_in()) {
+    redirect('login.php');
+}
 
 // Handle Form Submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirect('settings.php');
     }
 }
+
+require_once 'includes/header.php';
 ?>
 
 <form method="POST" enctype="multipart/form-data">

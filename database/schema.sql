@@ -3,12 +3,17 @@
 -- Jalankan di phpMyAdmin atau MySQL CLI
 -- =====================================================
 
--- Buat database
-CREATE DATABASE IF NOT EXISTS kkn_ciangsana 
-CHARACTER SET utf8mb4 
-COLLATE utf8mb4_unicode_ci;
+-- CATATAN PENTING UNTUK INFINITYFREE / SHARED HOSTING:
+-- 1. Jangan jalankan perintah CREATE DATABASE. Buat database lewat Control Panel (VistaPanel).
+-- 2. Buka phpMyAdmin, KLIK database yang sudah dibuat di sebelah kiri.
+-- 3. Baru import file ini.
 
-USE kkn_ciangsana;
+-- Hapus atau comment baris di bawah ini jika di hosting gratisan
+-- CREATE DATABASE IF NOT EXISTS kkn_ciangsana 
+-- CHARACTER SET utf8mb4 
+-- COLLATE utf8mb4_unicode_ci;
+
+-- USE kkn_ciangsana;
 
 -- =====================================================
 -- Tabel: users (untuk login admin)
@@ -23,8 +28,8 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Insert default admin (password: admin123)
 -- PENTING: Ganti password ini setelah pertama kali login!
-INSERT INTO users (username, password, nama_lengkap) VALUES 
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrator');
+INSERT IGNORE INTO users (username, password, nama_lengkap) VALUES 
+('admin', '$2y$10$bAQ6ssN8r.RnSVuePJiQN.92L3YHQOP0rmTx0aE9X/yeh7xuMW9QK', 'Administrator');
 
 -- =====================================================
 -- Tabel: settings (untuk konten statis)
@@ -39,7 +44,7 @@ CREATE TABLE IF NOT EXISTS settings (
 ) ENGINE=InnoDB;
 
 -- Insert default settings
-INSERT INTO settings (setting_key, setting_value, setting_type, setting_group) VALUES 
+INSERT IGNORE INTO settings (setting_key, setting_value, setting_type, setting_group) VALUES 
 -- Hero Section
 ('hero_title', 'Inovasi Hijau Untuk Masa Depan Desa', 'text', 'hero'),
 ('hero_subtitle', 'Bersinergi membangun ekonomi kreatif berbasis lingkungan', 'text', 'hero'),
@@ -61,6 +66,9 @@ INSERT INTO settings (setting_key, setting_value, setting_type, setting_group) V
 
 -- Visi Misi
 ('visi', 'Lingkunganku BERSIH, Masyarakatku SEHAT, Ekonomiku MANDIRI, Alamku LESTARI', 'textarea', 'visi_misi'),
+('sejarah_content', '<p>Berawal dari keresahan warga RW 021 Komplek TWP TNI AL Ciangsana Bogor akan kondisi lingkungan sekitarnya yang masih kotor dan kurang mendapat perhatian serius, maka pada tanggal <strong>23 Desember 2018</strong> dibentuklah Bank Sampah CINTA.</p><p>Paradigma bahwa sampah adalah buangan yang tidak berguna perlu diubah. Bank Sampah CINTA hadir sebagai jawaban untuk mengubah paradigma "Buang Sampah" menjadi <strong>"Tabung Sampah"</strong>. Melalui bank sampah ini, warga diajak untuk memilah sampah dari rumah, yang kemudian tidak hanya menciptakan lingkungan bersih tetapi juga memberikan nilai ekonomi.</p><p class="mb-0 fst-italic">"Bersih Lingkunganku, Sejahtera Keluargaku"</p>', 'html', 'visi_misi'),
+('sejarah_bg', '', 'image', 'visi_misi'),
+('galeri_bg', '', 'image', 'hero'),
 
 -- CTA Section
 ('cta_title', 'Bergabunglah Bersama Kami', 'text', 'cta'),
@@ -82,6 +90,7 @@ CREATE TABLE IF NOT EXISTS misi (
     id INT PRIMARY KEY AUTO_INCREMENT,
     content TEXT NOT NULL,
     sort_order INT DEFAULT 0,
+    is_active TINYINT(1) DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -102,7 +111,6 @@ CREATE TABLE IF NOT EXISTS programs (
     title VARCHAR(150) NOT NULL,
     description TEXT,
     image VARCHAR(255),
-    icon VARCHAR(50) DEFAULT 'fa-star',
     sort_order INT DEFAULT 0,
     is_active TINYINT(1) DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -110,10 +118,10 @@ CREATE TABLE IF NOT EXISTS programs (
 ) ENGINE=InnoDB;
 
 -- Insert default programs
-INSERT INTO programs (title, description, icon, sort_order) VALUES 
-('Tabungan Sampah', 'Program tabungan sampah untuk warga dengan sistem poin yang dapat ditukarkan dengan uang atau barang kebutuhan sehari-hari.', 'fa-piggy-bank', 1),
-('Kerajinan Daur Ulang', 'Pelatihan pembuatan kerajinan tangan dari bahan daur ulang seperti tas, dompet, dan aksesoris dari kemasan bekas.', 'fa-hands', 2),
-('Edukasi Lingkungan', 'Program edukasi untuk anak-anak dan masyarakat tentang pentingnya menjaga lingkungan dan cara memilah sampah.', 'fa-graduation-cap', 3);
+INSERT INTO programs (title, description, image, sort_order) VALUES 
+('Tabungan Sampah', 'Program tabungan sampah untuk warga dengan sistem poin yang dapat ditukarkan dengan uang atau barang kebutuhan sehari-hari.', '', 1),
+('Kerajinan Daur Ulang', 'Pelatihan pembuatan kerajinan tangan dari bahan daur ulang seperti tas, dompet, dan aksesoris dari kemasan bekas.', '', 2),
+('Edukasi Lingkungan', 'Program edukasi untuk anak-anak dan masyarakat tentang pentingnya menjaga lingkungan dan cara memilah sampah.', '', 3);
 
 -- =====================================================
 -- Tabel: gallery (galeri foto & prestasi)

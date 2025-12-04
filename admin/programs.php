@@ -1,6 +1,12 @@
 <?php
 $page_title = "Kelola Program Kerja";
-require_once 'includes/header.php';
+require_once '../config/database.php';
+require_once '../includes/functions.php';
+
+session_start();
+if (!is_logged_in()) {
+    redirect('login.php');
+}
 
 $action = $_GET['action'] ?? 'list';
 $id = $_GET['id'] ?? 0;
@@ -21,20 +27,34 @@ if ($action == 'delete' && $id) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = clean($_POST['title']);
     $description = clean($_POST['description']);
-    $icon = clean($_POST['icon']);
     $sort_order = (int)$_POST['sort_order'];
     $is_active = isset($_POST['is_active']) ? 1 : 0;
     
+    // Handle Image Upload
+    $image_path = $edit_item['image'] ?? ''; // Keep old image by default
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $upload = upload_image($_FILES['image'], 'programs');
+        if ($upload['success']) {
+            $image_path = $upload['path'];
+            // Delete old image if exists
+            if (!empty($edit_item['image'])) {
+                delete_image($edit_item['image']);
+            }
+        } else {
+            set_flash('warning', 'Gagal upload gambar: ' . $upload['message']);
+        }
+    }
+
     try {
         $conn = getConnection();
         if ($action == 'add') {
-            $stmt = $conn->prepare("INSERT INTO programs (title, description, icon, sort_order, is_active) VALUES (?, ?, ?, ?, ?)");
-            $stmt->execute([$title, $description, $icon, $sort_order, $is_active]);
+            $stmt = $conn->prepare("INSERT INTO programs (title, description, image, sort_order, is_active) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$title, $description, $image_path, $sort_order, $is_active]);
             set_flash('success', 'Program berhasil ditambahkan');
             redirect('programs.php');
         } elseif ($action == 'edit' && $id) {
-            $stmt = $conn->prepare("UPDATE programs SET title=?, description=?, icon=?, sort_order=?, is_active=? WHERE id=?");
-            $stmt->execute([$title, $description, $icon, $sort_order, $is_active, $id]);
+            $stmt = $conn->prepare("UPDATE programs SET title=?, description=?, image=?, sort_order=?, is_active=? WHERE id=?");
+            $stmt->execute([$title, $description, $image_path, $sort_order, $is_active, $id]);
             set_flash('success', 'Program berhasil diperbarui');
             redirect('programs.php');
         }
@@ -42,6 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         set_flash('danger', 'Terjadi kesalahan database: ' . $e->getMessage());
     }
 }
+
+require_once 'includes/header.php';
 
 // Get Data for Edit
 $edit_item = null;
@@ -65,7 +87,7 @@ if ($action == 'edit' && $id) {
                 <table class="table table-hover align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th width="60">Icon</th>
+                            <th width="100">Gambar</th>
                             <th>Nama Program</th>
                             <th>Deskripsi</th>
                             <th>Urutan</th>
@@ -80,7 +102,9 @@ if ($action == 'edit' && $id) {
                             <tr><td colspan="6" class="text-center py-4 text-muted">Belum ada data</td></tr>
                         <?php else: foreach ($items as $item): ?>
                             <tr>
-                                <td class="text-center text-primary fs-4"><i class="<?= clean($item['icon']) ?>"></i></td>
+                                <td class="text-center">
+                                    <img src="<?= img_url($item['image']) ?>" class="rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                                </td>
                                 <td class="fw-bold"><?= clean($item['title']) ?></td>
                                 <td class="text-muted small"><?= clean($item['description']) ?></td>
                                 <td><?= $item['sort_order'] ?></td>
@@ -112,19 +136,24 @@ if ($action == 'edit' && $id) {
                     <?= $action == 'add' ? 'Tambah Program Baru' : 'Edit Program' ?>
                 </div>
                 <div class="card-body">
-                    <form method="POST">
+                    <form method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label fw-bold">Nama Program</label>
                             <input type="text" name="title" class="form-control" required value="<?= $edit_item['title'] ?? '' ?>">
                         </div>
+                        
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Icon (FontAwesome Class)</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-icons"></i></span>
-                                <input type="text" name="icon" class="form-control" placeholder="fas fa-laptop-code" required value="<?= $edit_item['icon'] ?? '' ?>">
-                            </div>
-                            <div class="form-text">Contoh: <code>fas fa-tree</code>, <code>fas fa-hands-helping</code>. Lihat referensi di <a href="https://fontawesome.com/v5/search?m=free" target="_blank">FontAwesome</a>.</div>
+                            <label class="form-label fw-bold">Gambar Program</label>
+                            <input type="file" name="image" class="form-control">
+                            <?php if (!empty($edit_item['image'])): ?>
+                                <div class="mt-2">
+                                    <img src="<?= img_url($edit_item['image']) ?>" height="100" class="rounded">
+                                    <small class="text-muted ms-2">Gambar saat ini</small>
+                                </div>
+                            <?php endif; ?>
+                            <div class="form-text small">Format: JPG, PNG, WEBP. Max 2MB.</div>
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label fw-bold">Deskripsi Singkat</label>
                             <textarea name="description" class="form-control" rows="3" required><?= $edit_item['description'] ?? '' ?></textarea>

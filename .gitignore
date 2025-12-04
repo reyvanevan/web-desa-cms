@@ -1,0 +1,25 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# PHP / Composer
+vendor/
+composer.lock
+
+# Uploads (Keep the folder, ignore content)
+uploads/*
+!uploads/.gitkeep
+!uploads/placeholder.jpg
+!uploads/sample/
+
+# Config (Optional: usually we ignore this if it has secrets, but for this template we keep it)
+# config/database.php
+
+# Temporary / Backup Files
+index_old.html
+test_db.php
+*.log
+*.tmp

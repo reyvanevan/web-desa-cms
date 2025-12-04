@@ -1,6 +1,12 @@
 <?php
 $page_title = "Kelola Misi";
-require_once 'includes/header.php';
+require_once '../config/database.php';
+require_once '../includes/functions.php';
+
+session_start();
+if (!is_logged_in()) {
+    redirect('login.php');
+}
 
 $action = $_GET['action'] ?? 'list';
 $id = $_GET['id'] ?? 0;
@@ -40,6 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         set_flash('danger', 'Terjadi kesalahan database: ' . $e->getMessage());
     }
 }
+
+require_once 'includes/header.php';
 
 // Get Data for Edit
 $edit_item = null;

@@ -90,8 +90,8 @@ $products = get_gallery('produk');
                     <?php foreach ($programs as $index => $program): ?>
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="<?= ($index + 1) * 100 ?>">
                         <div class="card-program">
-                            <div class="card-img-wrapper d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
-                                <i class="<?= clean($program['icon']) ?> fa-5x text-primary"></i>
+                            <div class="card-img-wrapper d-flex align-items-center justify-content-center bg-light" style="height: 200px; overflow: hidden;">
+                                <img src="<?= img_url($program['image']) ?>" alt="<?= clean($program['title']) ?>" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                             <div class="card-body p-4">
                                 <h4><?= clean($program['title']) ?></h4>
@@ -118,46 +118,28 @@ $products = get_gallery('produk');
             </div>
 
             <div class="row g-3">
-                <?php if (!empty($products)): ?>
-                    <div class="col-md-8">
-                        <img src="<?= img_url($products[0]['image']) ?>" class="gallery-img"
-                            style="height: 515px;" data-aos="zoom-in">
-                    </div>
-                    <div class="col-md-4">
-                        <div class="row g-3">
-                            <?php if (isset($products[1])): ?>
-                            <div class="col-12">
-                                <img src="<?= img_url($products[1]['image']) ?>" class="gallery-img"
-                                    data-aos="zoom-in" data-aos-delay="100">
-                            </div>
-                            <?php endif; ?>
-                            <?php if (isset($products[2])): ?>
-                            <div class="col-12">
-                                <img src="<?= img_url($products[2]['image']) ?>" class="gallery-img"
-                                    data-aos="zoom-in" data-aos-delay="200">
-                            </div>
-                            <?php endif; ?>
+                <div class="col-md-8">
+                    <?php 
+                    $img1 = isset($products[0]) ? img_url($products[0]['image']) : 'https://placehold.co/800x500?text=Produk+Utama+Tas+Cantik';
+                    ?>
+                    <img src="<?= $img1 ?>" class="gallery-img" style="height: 515px;" data-aos="zoom-in">
+                </div>
+                <div class="col-md-4">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <?php 
+                            $img2 = isset($products[1]) ? img_url($products[1]['image']) : 'https://placehold.co/400x250?text=Kerajinan+Tangan';
+                            ?>
+                            <img src="<?= $img2 ?>" class="gallery-img" data-aos="zoom-in" data-aos-delay="100">
+                        </div>
+                        <div class="col-12">
+                            <?php 
+                            $img3 = isset($products[2]) ? img_url($products[2]['image']) : 'https://placehold.co/400x250?text=Pupuk+Kompos';
+                            ?>
+                            <img src="<?= $img3 ?>" class="gallery-img" data-aos="zoom-in" data-aos-delay="200">
                         </div>
                     </div>
-                <?php else: ?>
-                    <!-- Fallback Content -->
-                    <div class="col-md-8">
-                        <img src="https://placehold.co/800x500?text=Produk+Utama+Tas+Cantik" class="gallery-img"
-                            style="height: 515px;" data-aos="zoom-in">
-                    </div>
-                    <div class="col-md-4">
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <img src="https://placehold.co/400x250?text=Kerajinan+Tangan" class="gallery-img"
-                                    data-aos="zoom-in" data-aos-delay="100">
-                            </div>
-                            <div class="col-12">
-                                <img src="https://placehold.co/400x250?text=Pupuk+Kompos" class="gallery-img"
-                                    data-aos="zoom-in" data-aos-delay="200">
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
+                </div>
             </div>
         </div>
     </section>
